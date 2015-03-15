@@ -3,9 +3,6 @@ package vectors
 import org.scalatest.{FreeSpec, Matchers}
 import utils.NumberUtils._
 
-/**
- * Created by tomas on 14/03/15.
- */
 class VectorsTest extends FreeSpec with Matchers {
 
   "My little vector library" - {
@@ -14,6 +11,7 @@ class VectorsTest extends FreeSpec with Matchers {
         val u = VectorR2(2, 5)
         val v = VectorR2(3, 4)
         val w = VectorR2(-300, 1)
+        val x = VectorR2(1,180)
         "Adds two vectors" in {
           u + v should be (VectorR2(5, 9))
           v + w should be (VectorR2(-297, 5))
@@ -37,9 +35,18 @@ class VectorsTest extends FreeSpec with Matchers {
           w x v should be (VectorR3(0, 0, -1203))
         }
         "Resolves modules" in {
-          u.module should be (math.sqrt(29))
-          v.module should be (5)
-          w.module should be (math.sqrt(90001))
+          u.magnitude should be (math.sqrt(29))
+          v.magnitude should be (5)
+          w.magnitude should be (math.sqrt(90001))
+        }
+        "Computes the angle formed by its coordinates" in {
+          u.angle should be (-1.3386481283041514)
+          w.angle should be (-299.99888888806584)
+          x.angle should be (0.7469988144140444)
+        }
+        "Projects correctly 2 vectors" in {
+          u.projection(v) should be (1.04)
+          v.projection(u) should be (0.8965517241379312)
         }
       }
     }
