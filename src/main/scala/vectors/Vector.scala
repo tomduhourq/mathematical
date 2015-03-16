@@ -13,32 +13,43 @@ sealed trait Vector {
   def projection(v: Vector) =
     this * v / v.magnitude.square
 }
+
+object Vector {
+
+  lazy val origin = V3.origin
+}
 /**
  * Vectors in R2
  */
-case class VectorR2(x: Double, y: Double) extends Vector {
+case class V2(x: Double, y: Double) extends Vector {
 
-  def +(that: VectorR2)       =
-    VectorR2(x + that.x, y + that.y)
+  def +(that: Vector)         =
+    that match {
+      case V2(a, b)     => 
+        V2(x + a, y + b)
+//      case V3(a, b , c) =>
+//        V3(x + a, y + b, c)
+      case _ => V2.origin
+    }
 
-  def -(that: VectorR2)       =
-    this + VectorR2(-that.x, -that.y)
+  def -(that: V2)             =
+    this + V2(-that.x, -that.y)
 
   def *(that: Double)         =
-    VectorR2(x * that, y * that)
-  def *(that: Vector)       =
+    V2(x * that, y * that)
+  def *(that: Vector)         =
     that match {
-      case VectorR2(a, b) =>
+      case V2(a, b) =>
         x * a + y * b
-      case _              =>
+      case _        =>
         throw new RuntimeException(
           "Cannot multiply the 2 types of Vectors"
         )
     }
 
-  def x(that: VectorR2)       = {
+  def x(that: V2)             = {
     val u = this.toR3
-    val v: VectorR3 = that.toR3
+    val v = that.toR3
     R3.resolveX(u, v) +
     R3.resolveY(u, v) +
     R3.resolveZ(u, v)
@@ -50,48 +61,60 @@ case class VectorR2(x: Double, y: Double) extends Vector {
   def angle                   =
     1/math.tan(y/x)
 
-  def toR3: VectorR3          =
-    VectorR3(x, y, 0)
+  def toR3: V3                =
+    V3(x, y, 0)
+
+
+  override def toString       =
+    s"($x, $y)"
+}
+
+object V2 {
+  lazy val origin = V2(0, 0)
 }
 
 /**
  * Vectors in R3
  */
-case class VectorR3(x: Double, y: Double, z: Double) extends Vector {
+case class V3(x: Double, y: Double, z: Double) extends Vector {
 
-  def +(that: VectorR3) =
-    VectorR3(x + that.x, y + that.y, z + that.z)
-
-  def -(that: VectorR3) =
-    this + VectorR3(-that.x, -that.y, -that.z)
-
-  def *(that: Vector)       =
+  def +(that: Vector): V3   =
     that match {
-      case VectorR3(a, b, c) =>
+      case V2(a, b)    =>
+        V3(x + a, y + b, z)
+      case V3(a, b, c) =>
+        V3(x + a, y + b, z + c)
+      case _ => V3.origin
+    }
+
+  def -(that: V3)               =
+    this + V3(-that.x, -that.y, -that.z)
+
+  def *(that: Vector)           =
+    that match {
+      case V3(a, b, c) =>
         x * a + y * b + z * c
-      case _                 =>
+      case _           =>
         throw new RuntimeException(
           "Cannot multiply the 2 types of Vectors"
         )
     }
-  def *(that: Double)      =
-    VectorR3(x * that, y * that, z * that)
+  def *(that: Double)           =
+    V3(x * that, y * that, z * that)
 
-  def magnitude         =
+  def x(that: V3)               =
+    R3.resolveX(this, that) +
+    R3.resolveY(this, that) +
+    R3.resolveZ(this, that)
+
+  def magnitude                 =
     math.sqrt(x.square + y.square + z.square )
+
+  override def toString         =
+    s"($x, $y, $z)"
 }
 
-object R3 {
-
-  lazy val i = VectorR3(1, 0, 0)
-  lazy val j = VectorR3(0, 1, 0)
-  lazy val k = VectorR3(0, 0, 1)
-
-  def resolveX(u: VectorR3, v: VectorR3) =
-    i * (u.y * v.z - (v.y * u.z))
-  def resolveY(u: VectorR3, v: VectorR3) =
-    (j * -1.0) * (u.x * v.z - (v.x * u.z))
-  def resolveZ(u: VectorR3, v: VectorR3) =
-    k * (u.x * v.y - (v.x * u.y))
+object V3 {
+  lazy val origin = V3(0, 0, 0)
 }
 
