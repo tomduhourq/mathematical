@@ -71,9 +71,6 @@ case class V2(x: Double, y: Double) extends Vector {
       x / this.length,
       y / this.length
     )
-
-  override def toString       =
-    s"($x, $y)"
 }
 
 object V2 {
@@ -126,9 +123,6 @@ case class V3(x: Double, y: Double, z: Double) extends Vector {
       y / this.length,
       z / this.length
     )
-
-  override def toString         =
-    s"($x, $y, $z)"
 }
 
 object V3 {

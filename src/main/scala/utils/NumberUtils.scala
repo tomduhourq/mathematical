@@ -1,5 +1,7 @@
 package utils
 
+import complex.Cpx
+
 /**
  * This object provides additional operations for number types.
  */
@@ -25,5 +27,8 @@ object NumberUtils {
       recFactorial(BigInt(1),n.toInt)
     }
     def *(that: vectors.Vector) = that * n
+    def +(that: Cpx)            = Cpx(n + that.r, that.z)
   }
 }
+
+

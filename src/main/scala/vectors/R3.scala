@@ -7,7 +7,6 @@ import vectors._
  * Representation of the 3-dimensional space.
  */
 object R3 {
-
   lazy val i = V3(1, 0, 0)
   lazy val j = V3(0, 1, 0)
   lazy val k = V3(0, 0, 1)
@@ -29,7 +28,6 @@ object R3 {
 }
 
 object VMonoids {
-
   lazy val addMonoid = new Monoid[V3] {
     def operation(v1: V3, v2: V3) = v1 + v2
     def zero = V3.origin
