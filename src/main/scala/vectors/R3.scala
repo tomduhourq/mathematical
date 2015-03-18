@@ -21,22 +21,16 @@ object R3 {
   def resolveZ(u: V3, v: V3): V3 =
     k * (u.x * v.y - (v.x * u.y))
 
-  // TODO: work a way to evaluate only Vectors
-  def sumV2(l: List[V2])(implicit m: Monoid[V2]) =
-    l.foldLeft(m.zero)(m.operation(_ , _))
+  // TODO: work a way to evaluate only monoids of Vectors
+  def sum(l: List[Vector])(implicit m: Monoid[V3]) =
+    Monoid.foldMap(l, m)(converter)
 
-  def sumV3(l: List[V3])(implicit m: Monoid[V3]) =
-    l.foldLeft(m.zero)(m.operation(_ , _))
+  lazy private val converter = (v: Vector) => v.toR3
 }
 
 object VMonoids {
 
-  lazy val addMonoidV2 = new Monoid[V2] {
-    def operation(v1: V2, v2: V2) = v1 + v2
-    def zero = V2.origin
-  }
-
-  lazy val addMonoidV3 = new Monoid[V3] {
+  lazy val addMonoid = new Monoid[V3] {
     def operation(v1: V3, v2: V3) = v1 + v2
     def zero = V3.origin
   }

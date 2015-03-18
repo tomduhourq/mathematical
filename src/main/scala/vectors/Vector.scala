@@ -3,21 +3,22 @@ package vectors
 import utils.NumberUtils._
 
 /**
- * This is the general definition of a vector. All other vectors extend from this,
- * and must define the common operators.
+ * This is the general definition of a vector.
+ * All other vectors extend from this, and must define the common operators.
  */
 sealed trait Vector {
   def *(n: Double)         : Vector
   def *(v: Vector)         : Double
   def magnitude            : Double
+  def toR3                 : V3
   def projection(v: Vector) =
     this * v / v.magnitude.square
 }
 
 object Vector {
-
   lazy val origin = V3.origin
 }
+
 /**
  * Vectors in R2
  */
@@ -27,8 +28,8 @@ case class V2(x: Double, y: Double) extends Vector {
     that match {
       case V2(a, b)     => 
         V2(x + a, y + b)
-//      case V3(a, b , c) =>
-//        V3(x + a, y + b, c)
+      case V3(a, b , c) =>
+        V3(x + a, y + b, c)
       case _ => V2.origin
     }
 
@@ -110,6 +111,8 @@ case class V3(x: Double, y: Double, z: Double) extends Vector {
   def magnitude                 =
     math.sqrt(x.square + y.square + z.square )
 
+  def toR3                      =
+    this
   override def toString         =
     s"($x, $y, $z)"
 }
