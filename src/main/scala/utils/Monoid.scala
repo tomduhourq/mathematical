@@ -6,11 +6,11 @@ package utils
  */
 trait Monoid[A] {
   def operation(v1: A, v2: A): A
-  def zero: A
+  def zero                   : A
 }
 
 object Monoid {
-  def concatenate[A](as: List[A], m: Monoid[A]) =
+  def concatenate[A](as: List[A], m: Monoid[A])           =
     as.foldLeft(m.zero)(m.operation)
   def foldMap[A, B](as: List[A], m: Monoid[B])(f: A => B) =
     concatenate(as map f, m)
