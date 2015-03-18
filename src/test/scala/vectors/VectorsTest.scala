@@ -35,9 +35,9 @@ class VectorsTest extends FreeSpec with Matchers {
           w x v should be (V3(0, 0, -1203))
         }
         "Resolves modules" in {
-          u.magnitude should be (math.sqrt(29))
-          v.magnitude should be (5)
-          w.magnitude should be (math.sqrt(90001))
+          u.length should be (math.sqrt(29))
+          v.length should be (5)
+          w.length should be (math.sqrt(90001))
         }
         "Computes the angle formed by its coordinates" in {
           u.angle should be (-1.3386481283041514)
@@ -47,6 +47,9 @@ class VectorsTest extends FreeSpec with Matchers {
         "Projects correctly 2 vectors" in {
           u.projection(v) should be (1.04)
           v.projection(u) should be (0.8965517241379312)
+        }
+        "Computes correctly normals" in {
+          v.normal should be (V2(0.6, 0.8))
         }
       }
       "R3" - {
@@ -76,9 +79,9 @@ class VectorsTest extends FreeSpec with Matchers {
           w x v should be (V3(-1, 2106, -1203))
         }
         "Resolves modules" in {
-          u.magnitude should be (6.164414002968976)
-          v.magnitude should be (8.602325267042627)
-          w.magnitude should be (300.0083332175958)
+          u.length should be (6.164414002968976)
+          v.length should be (8.602325267042627)
+          w.length should be (300.0083332175958)
         }
         "Projects correctly 2 vectors" in {
           u.projection(v) should be (0.6351351351351351)

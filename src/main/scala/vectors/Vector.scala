@@ -9,10 +9,11 @@ import utils.NumberUtils._
 sealed trait Vector {
   def *(n: Double)         : Vector
   def *(v: Vector)         : Double
-  def magnitude            : Double
   def toR3                 : V3
+  val length               : Double
+  val normal               : Vector
   def projection(v: Vector) =
-    this * v / v.magnitude.square
+    this * v / v.length.square
 }
 
 object Vector {
@@ -56,7 +57,7 @@ case class V2(x: Double, y: Double) extends Vector {
     R3.resolveZ(u, v)
   }
 
-  def magnitude               =
+  lazy val length             =
     math.sqrt(x.square + y.square)
 
   def angle                   =
@@ -65,6 +66,11 @@ case class V2(x: Double, y: Double) extends Vector {
   def toR3: V3                =
     V3(x, y, 0)
 
+  lazy val normal             =
+    V2(
+      x / this.length,
+      y / this.length
+    )
 
   override def toString       =
     s"($x, $y)"
@@ -79,7 +85,7 @@ object V2 {
  */
 case class V3(x: Double, y: Double, z: Double) extends Vector {
 
-  def +(that: Vector): V3   =
+  def +(that: Vector): V3       =
     that match {
       case V2(a, b)    =>
         V3(x + a, y + b, z)
@@ -108,11 +114,19 @@ case class V3(x: Double, y: Double, z: Double) extends Vector {
     R3.resolveY(this, that) +
     R3.resolveZ(this, that)
 
-  def magnitude                 =
+  lazy val length                    =
     math.sqrt(x.square + y.square + z.square )
 
   def toR3                      =
     this
+
+  lazy val normal               =
+    V3(
+      x / this.length,
+      y / this.length,
+      z / this.length
+    )
+
   override def toString         =
     s"($x, $y, $z)"
 }
