@@ -16,6 +16,7 @@ object NumberUtils {
       recFactorial(BigInt(1),n)
     }
     def *(that: vectors.Vector) = that * n
+    def +(that: Cpx)            = Cpx(n + that.r, that.z)
   }
   implicit class RichDouble(val n: Double) extends AnyVal {
     def square = n * n

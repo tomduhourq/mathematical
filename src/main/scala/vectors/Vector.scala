@@ -2,9 +2,9 @@ package vectors
 
 import utils.NumberUtils._
 
-/**
- * This is the general definition of a vector.
- * All other vectors extend from this, and must define the common operators.
+/** This is the general definition of a vector.
+ * All other vectors extend from this,
+ * and must define the common operators.
  */
 sealed trait Vector {
   def *(n: Double)         : Vector
@@ -20,14 +20,15 @@ object Vector {
   lazy val origin = V3.origin
 }
 
-/**
- * Vectors in R2
+/** Vectors in R2
+ *  Provide an implementation for the bidimensional
+ *  algebraic space.
  */
 case class V2(x: Double, y: Double) extends Vector {
 
   def +(that: Vector)         =
     that match {
-      case V2(a, b)     => 
+      case V2(a, b)     =>
         V2(x + a, y + b)
       case V3(a, b , c) =>
         V3(x + a, y + b, c)
@@ -53,8 +54,8 @@ case class V2(x: Double, y: Double) extends Vector {
     val u = this.toR3
     val v = that.toR3
     R3.resolveX(u, v) +
-    R3.resolveY(u, v) +
-    R3.resolveZ(u, v)
+      R3.resolveY(u, v) +
+      R3.resolveZ(u, v)
   }
 
   lazy val length             =
@@ -77,8 +78,9 @@ object V2 {
   lazy val origin = V2(0, 0)
 }
 
-/**
- * Vectors in R3
+/** Vectors in R3
+ * provide an implmentation for the
+ * common structures of R3
  */
 case class V3(x: Double, y: Double, z: Double) extends Vector {
 
@@ -108,8 +110,8 @@ case class V3(x: Double, y: Double, z: Double) extends Vector {
 
   def x(that: V3)               =
     R3.resolveX(this, that) +
-    R3.resolveY(this, that) +
-    R3.resolveZ(this, that)
+      R3.resolveY(this, that) +
+      R3.resolveZ(this, that)
 
   lazy val length                    =
     math.sqrt(x.square + y.square + z.square )
