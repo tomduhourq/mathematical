@@ -1,5 +1,7 @@
 package complex
 
+import scala.math.BigDecimal
+
 /** Immutable complex number
  * and its operations
  */
@@ -17,7 +19,11 @@ case class Cpx(r: Double, z: Double) {
   override def toString =
     s"$r + $z j"
 
-  implicit def f[A] = (a:A) => a.toString.toDouble
+  implicit def f[A] =
+    (a:A) =>
+      BigDecimal(a.toString)
+      .setScale(4, BigDecimal.RoundingMode.HALF_UP)
+      .toDouble
 }
 
 object j extends Cpx(0, 1) {
