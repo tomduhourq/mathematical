@@ -16,8 +16,11 @@ case class Cpx(r: Double, z: Double) {
   def +(that: Cpx) =
     Cpx(r + that.r, z + that.z)
 
+  def -(that: Cpx) =
+    this + Cpx(-that.r, -that.z)
+
   override def toString =
-    s"$r + $z j"
+    s"$r ${if(z < 0) "" else "+"} ${z}j"
 
   implicit def f[A] =
     (a:A) =>

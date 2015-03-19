@@ -9,8 +9,7 @@ import Prop.forAll
 object CpxSpecification extends Properties("Cpx") {
 
   // Generate random Cpx numbers
-  val complex: Gen[Cpx] =
-    for {
+  val complex: Gen[Cpx] = for {
       r <- Gen.choose(-500, 500)
       z <- Gen.choose(-500, 500)
     } yield Cpx(r, z)
@@ -39,5 +38,15 @@ object CpxSpecification extends Properties("Cpx") {
   property("associativity of sum (1 Cpx 2 Num)") = forAll(complex, doubs, doubs) {
     (x: Cpx, y: Double, z: Double) =>
       (x + y.toInt) + z.toInt == x + (y.toInt + z.toInt)
+  }
+
+  property("Non commutativity of subtraction") = forAll(complex, complex) {
+    (x: Cpx, y: Cpx) =>
+      x - y != y - x
+  }
+
+  property("Non associativity of subtraction") = forAll(complex, complex, complex) {
+    (x: Cpx, y: Cpx, z: Cpx) =>
+      (x - y) - z != x - (y - z)
   }
 }
