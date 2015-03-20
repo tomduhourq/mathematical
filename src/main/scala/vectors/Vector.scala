@@ -13,7 +13,7 @@ sealed trait Vector {
   val length               : Double
   val normal               : Vector
   def projection(v: Vector) =
-    this * v / v.length.square
+    this * v / (v.length ^ 2)
 }
 
 object Vector {
@@ -59,7 +59,7 @@ case class V2(x: Double, y: Double) extends Vector {
   }
 
   lazy val length             =
-    math.sqrt(x.square + y.square)
+    math.sqrt((x ^ 2) + (y ^ 2))
 
   def angle                   =
     1/math.tan(y/x)
@@ -114,7 +114,7 @@ case class V3(x: Double, y: Double, z: Double) extends Vector {
       R3.resolveZ(this, that)
 
   lazy val length                    =
-    math.sqrt(x.square + y.square + z.square )
+    math.sqrt((x ^ 2) + (y ^ 2) + (z ^ 2))
 
   def toR3                      =
     this

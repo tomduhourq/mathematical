@@ -7,7 +7,7 @@ import complex.Cpx
  */
 object NumberUtils {
   implicit class RichInt(val n: Int) extends AnyVal {
-    def square = n * n
+    def ^(pow: Int) = math.pow(n, pow)
     def abs = if(n < 0) -n else n
     def ! = {
       def recFactorial(acum: BigInt, left: Int): BigInt =
@@ -19,7 +19,7 @@ object NumberUtils {
     def +(that: Cpx)            = Cpx(n + that.r, that.z)
   }
   implicit class RichDouble(val n: Double) extends AnyVal {
-    def square = n * n
+    def ^(pow: Int) = math.pow(n, pow)
     def abs = if(n < 0) -n else n
     def ! = {
       def recFactorial(acum: BigInt, left: Int): BigInt =

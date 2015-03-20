@@ -36,7 +36,7 @@ case class Cpx(r: Double, z: Double) {
       Cpx(r / a, z / a)
     case Cpx(a, b) => {
       (this * conjugate(that)) /
-      Cpx(that.r.square + that.z.square, 0)
+      Cpx((that.r ^ 2) + (that.z ^ 2), 0)
     }
   }
 
