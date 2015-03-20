@@ -6,7 +6,7 @@ This project contains:
 - Simple extensions for numeric classes
 - Complex numbers with operations
 
-using Scala with ScalaTest, under construction
+using Scala with ScalaTest and ScalaCheck, under construction
 
 
 

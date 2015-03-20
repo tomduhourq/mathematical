@@ -17,14 +17,19 @@ object CpxSpecification extends Properties("Cpx") {
   val doubs: Gen[Double] = Gen.choose(-100, 100)
 
   // Sum 2 Complex
-  property("commutativity of sum (2 Cpx)") = forAll(complex, complex) {
+  property("commutativity of sum") = forAll(complex, complex) {
     (x: Cpx, y: Cpx) =>
       x + y == y + x
   }
 
-  property("associativity of sum (3 Cpx)") = forAll(complex, complex, complex) {
+  property("associativity of sum") = forAll(complex, complex, complex) {
     (x: Cpx, y: Cpx, z: Cpx) =>
       (x + y) + z == x + (y + z)
+  }
+
+  property("existence of neuter element") = forAll(complex) {
+    (x: Cpx) =>
+      x + Cpx(0, 0) == x
   }
 
   // Sums a complex and a number
@@ -40,13 +45,29 @@ object CpxSpecification extends Properties("Cpx") {
       (x + y.toInt) + z.toInt == x + (y.toInt + z.toInt)
   }
 
-  property("Non commutativity of subtraction") = forAll(complex, complex) {
+  property("non commutativity of subtraction") = forAll(complex, complex) {
     (x: Cpx, y: Cpx) =>
       x - y != y - x
   }
 
-  property("Non associativity of subtraction") = forAll(complex, complex, complex) {
+  property("non associativity of subtraction") = forAll(complex, complex, complex) {
     (x: Cpx, y: Cpx, z: Cpx) =>
       (x - y) - z != x - (y - z)
+  }
+
+  // Product
+  property("commutativity of product") = forAll(complex, complex) {
+    (x: Cpx, y: Cpx) =>
+      x * y == y * x
+  }
+
+  property("associativity of product") = forAll(complex, complex, complex) {
+    (x: Cpx, y: Cpx, z: Cpx) =>
+      x * (y * z) == (x * y) * z
+  }
+
+  property("existence of neuter element") = forAll(complex) {
+    (x: Cpx) =>
+      x * Cpx(1, 0) == x
   }
 }

@@ -16,5 +16,15 @@ class CpxTest extends FreeSpec with Matchers {
       2 + c1 should be (Cpx(3, 1))
       c2 + 1 should be (Cpx(1, -1))
     }
+    "Subtracts two Cpx" in {
+      Cpx(5, -2) - Cpx(-4, -1) should be (Cpx(9, -1))
+    }
+    "Multiplies 2 Cpx" in {
+      Cpx(2, -1) * Cpx(3, 4) should be (Cpx(10, 5))
+      c1 * c2 should be (Cpx(1, -1))
+    }
+    "Divides 2 Cpx" in {
+      Cpx(3, 0) / Cpx(2, 1) should be (Cpx(6/5.toDouble, -3/5.toDouble))
+    }
   }
 }
