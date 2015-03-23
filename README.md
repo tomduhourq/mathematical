@@ -4,7 +4,7 @@ The project arose as an intention to help my brothers study physics and math wit
 
 - Simple operations on Vectors in R2 and R3
 - Simple extensions for numeric classes
-- Complex numbers with operations
+- Complex numbers with their operations
 
 using Scala with ScalaTest and ScalaCheck, under construction.
 
