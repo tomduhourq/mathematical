@@ -1,12 +1,19 @@
 package utils
 
 /**
+ * Semigroup abstraction: An entity holding a
+ * single operation for an invariant type.
+ */
+trait Semigroup[M] {
+  def operation(v1: M, v2: M): M
+}
+
+/**
  * Monoid abstraction: An entity holding a zero
  * and a single operation for an invariant type.
  */
-trait Monoid[A] {
-  def operation(v1: A, v2: A): A
-  def zero                   : A
+trait Monoid[A] extends Semigroup[A] {
+  def zero: A
 }
 
 object Monoid {
