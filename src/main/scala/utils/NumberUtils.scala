@@ -6,6 +6,7 @@ import complex.Cpx
  * This object provides additional operations for number types.
  */
 object NumberUtils {
+
   implicit class RichInt(val n: Int) extends AnyVal {
     def ^(pow: Int) = math.pow(n, pow)
     def abs = if(n < 0) -n else n
@@ -18,6 +19,7 @@ object NumberUtils {
     def *(that: vectors.Vector) = that * n
     def +(that: Cpx)            = Cpx(n + that.r, that.z)
   }
+
   implicit class RichDouble(val n: Double) extends AnyVal {
     def ^(pow: Int) = math.pow(n, pow)
     def abs = if(n < 0) -n else n

@@ -26,5 +26,8 @@ class CpxTest extends FreeSpec with Matchers {
     "Divides 2 Cpx" in {
       Cpx(3, 0) / Cpx(2, 1) should be (Cpx(6/5.toDouble, -3/5.toDouble))
     }
+    "Correctly calculates the sqrt" in {
+      Cpx(3, 4).squareRoot should be (Cpx(2, 1))
+    }
   }
 }

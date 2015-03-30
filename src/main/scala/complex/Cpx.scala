@@ -34,11 +34,19 @@ case class Cpx(r: Double, z: Double) {
       throw new ArithmeticException("Cannot divide by zero")
     case Cpx(a, 0) =>
       Cpx(r / a, z / a)
-    case Cpx(a, b) => {
+    case Cpx(a, b) =>
       (this * conjugate(that)) /
       Cpx((that.r ^ 2) + (that.z ^ 2), 0)
-    }
   }
+
+  lazy val squareRoot =
+    Cpx(
+      math.sqrt((r + length) / 2),
+      z.signum * math.sqrt((r * -1 + length) / 2)
+    )
+
+  val length =
+    math.sqrt((r ^ 2) + (z ^ 2))
 
   private def conjugate(c: Cpx) =
     Cpx(c.r, -c.z)
@@ -46,7 +54,7 @@ case class Cpx(r: Double, z: Double) {
   override def toString =
     s"$r ${if(z < 0) "" else "+"} ${z}j"
 
-  implicit def f[A] =
+  implicit def f[A]: (A) => Double =
     (a:A) =>
       BigDecimal(a.toString)
       .setScale(4, BigDecimal.RoundingMode.HALF_UP)
