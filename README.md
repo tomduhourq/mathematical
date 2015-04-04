@@ -12,3 +12,7 @@ At the time being, we can only use it through Scala's REPL.
 
 
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/tomduhourq/mathematical/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
